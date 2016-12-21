@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 # Add rest_framework and the api to the installed apps
+# Add drf_docs for documentation
 
 
 INSTALLED_APPS = [
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'bucketlist_api.apps.BucketlistApiConfig',
+    'rest_framework_swagger',
 ]
 
 # Add JWT to enable token authentication
@@ -56,10 +58,12 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 }
+
 JWT_AUTH = {
     # Token expiry set to one hour
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
 }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
