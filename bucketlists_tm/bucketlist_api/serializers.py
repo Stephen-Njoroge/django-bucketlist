@@ -1,7 +1,7 @@
 from django.db import IntegrityError
 
 from rest_framework import serializers
-from api.models import BucketList, Item
+from bucketlist_api.models import BucketList, Item
 from django.contrib.auth.models import User
 
 from django.utils.timezone import now
@@ -46,7 +46,7 @@ class ItemSerializer(serializers.ModelSerializer):
     '''
 
     bucketlist = serializers.PrimaryKeyRelatedField(read_only=True)
-    is_done = serializers.BooleanField(required=False)
+    done = serializers.BooleanField(required=False)
     name = serializers.CharField(required=False)
 
     def create(self, validated_data):
@@ -57,18 +57,18 @@ class ItemSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.date_modified = now()
         instance.name = validated_data.get('name', instance.name)
-        instance.description = validated_data.get('description',
-                                                  instance.description)
-        instance.is_done = validated_data.get('is_done', instance.is_done)
+        instance.done = validated_data.get('done', instance.done)
         return super(ItemSerializer, self).update(instance, validated_data)
 
     class Meta:
         model = Item
-        fields = ('id', 'name', 'is_done', 'created_on',
+        fields = ('id', 'name', 'done', 'created_on',
                   'modified_on', 'bucketlist')
 
 
 class BucketListSerializer(serializers.ModelSerializer):
+    '''Serializer for the bucketlist model '''
+
     owner = serializers.ReadOnlyField(source='owner.username')
     url = serializers.HyperlinkedIdentityField(view_name='bucketlist-detail',
                                                format='html')
@@ -85,14 +85,14 @@ class BucketListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BucketList
-        fields = ("id", "owner", "name", "description",
+        fields = ("id", "owner", "name",
                   "items", "created_on", "modified_on", "url")
 
     def create(self, validated_data):
         try:
             if not validated_data.get("name"):
                 raise serializers.ValidationError(
-                    "Bucket list name cannot be empty")
+                    "Bucket list item must have a name")
             return super(BucketListSerializer, self).create(validated_data)
         except IntegrityError:
             raise serializers.ValidationError(
