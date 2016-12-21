@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,6 +30,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# Add rest_framework and the api to the installed apps
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,6 +43,23 @@ INSTALLED_APPS = [
     'rest_framework',
     'bucketlist_api.apps.BucketlistApiConfig',
 ]
+
+# Add JWT to enable token authentication
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated'
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
+JWT_AUTH = {
+    # Token expiry set to one hour
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -105,13 +125,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Allow access to end points when user forgets a trailing / in urls
+
+APPEND_SLASH = False
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
