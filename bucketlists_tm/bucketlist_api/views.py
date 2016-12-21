@@ -25,7 +25,16 @@ def api_root(request, format=None):
 
 
 class BucketListViewSet(viewsets.ModelViewSet):
-    '''Bucketlist views with permissions to allow access by owner'''
+    '''
+    API view to perform CRUD operations on Bucketlists.
+    POST = CREATE,
+    GET = READ,
+    PUT = UPDATE,
+    DELETE = DELETE.
+    Requires authorization and bucketlist pk to read/update/delete
+    a specific bucketlist.
+    Users can only access their personal Bucketlists.
+    '''
 
     queryset = BucketList.objects.all()
     serializer_class = BucketListSerializer
@@ -43,7 +52,16 @@ class BucketListViewSet(viewsets.ModelViewSet):
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-    '''Items views with permissions set to allow access byowner'''
+    '''
+    API view to perform CRUD operations on Bucketlist Items.
+    POST = CREATE,
+    GET = READ,
+    PUT = UPDATE,
+    DELETE = DELETE.
+    Requires authorization, bucketlist pk of bucketlist holding the item,
+    and item pk of the item to read/update/delete.
+    Items are tied to mother bucketlists.
+    '''
 
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
@@ -63,7 +81,10 @@ class ItemViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    '''Users view with permissions granted to allow registration and login'''
+    '''
+    Users view to allow registration of a user by sending a
+    unique username, a password, and an email.
+    '''
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
