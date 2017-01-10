@@ -1,2 +1,15 @@
+coreapi==2.1.1
 Django==1.10.4
+django-rest-swagger==0.3.10
 djangorestframework==3.5.3
+djangorestframework-jwt==1.9.0
+drf-nested-routers==0.11.1
+drfdocs==0.0.11
+itypes==1.1.0
+openapi-codec==1.2.1
+psycopg2==2.6.2
+PyJWT==1.4.2
+PyYAML==3.12
+requests==2.12.4
+simplejson==3.10.0
+uritemplate==3.0.0
