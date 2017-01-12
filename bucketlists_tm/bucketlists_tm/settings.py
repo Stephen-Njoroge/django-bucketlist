@@ -26,7 +26,7 @@ SECRET_KEY = ')gy3bkvzcd5$rh*gs8viwrvrw&d=cg75+r(ru&4#2!n#w&gp8d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'bucketlists-tm.herokuapp.com']
 
 
 # Application definition
