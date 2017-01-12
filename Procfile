@@ -1,0 +1,1 @@
+web: cd bucketlists_tm; gunicorn bucketlists_tm.wsgi;
