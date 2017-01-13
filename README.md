@@ -1,2 +1,4 @@
 # django-bucketlist
-A django bucketlist api consumed using django templates and angular js.
+A django bucketlist api ready for consumption.
+See the Api documentation [at](https://bucketlists-tm.herokuapp.com/#!/api)
+
